@@ -4,8 +4,8 @@ import threading
 
 username = input("Enter your username: ")
 
-host = '192.168.1.83'
-port = 40000
+host = '127.0.0.1'
+port = 55555
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((host, port))
@@ -28,13 +28,12 @@ def receive_messages():
 def write_messages():
     while True:
         message = f"{username}: {input('')}"
-        if message == f'{username}: exit':
-            client.close()
-            sys.exit(0)
-        elif message == f'{username}: exit':
-            client.send("Una imagen será enviada jsakjskajsk")
-        else:
-            client.send(message.encode('utf-8'))
+        if message == f"{username}: exit":
+            client.send("exit".encode('utf-8'))
+            sys.exit()
+            exit()
+            break;
+        client.send(message.encode('utf-8'))
 
 receive_thread = threading.Thread(target=receive_messages)
 receive_thread.start()

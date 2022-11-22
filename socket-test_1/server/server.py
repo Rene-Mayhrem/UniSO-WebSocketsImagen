@@ -2,15 +2,15 @@ import socket
 import threading
 
 
-host = '192.168.1.83'
-port = 40000
+host = '127.0.0.1'
+port = 55555
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 server.bind((host, port))
 server.listen()
 print(f"Server running on {host}:{port}")
-5
+
 
 clients = []
 usernames = []
@@ -18,12 +18,20 @@ usernames = []
 def broadcast(message, _client):
     for client in clients:
         if client != _client:
+            print(f"There are {len(clients)} clients in the chat")
             client.send(message)
 
 def handle_messages(client):
     while True:
         try:
-            message = client.recv(1024)
+            message = client.recv(2048)
+            print(str(message))
+            if "exit" in str(message):
+                print("Client disconnected")
+                broadcast(f"ChatBot: {username} disconnected".encode('utf-8'), client)
+                clients.remove(client)
+                usernames.remove(username)
+                client.close()
             broadcast(message, client)
         except:
             index = clients.index(client)
