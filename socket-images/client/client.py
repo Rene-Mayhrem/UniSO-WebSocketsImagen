@@ -1,7 +1,7 @@
 import socket
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(('localhost', 2000))
+client.connect(('172.26.49.191', 8000))
 
 file = open('shrek.jpg', 'rb')
 image_data = file.read(2048)

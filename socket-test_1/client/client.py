@@ -27,12 +27,14 @@ def receive_messages():
 
 def write_messages():
     while True:
-        message = f"{username}: {input('')}"
+        message = f"{username}: {input(f'{username}: ')}"
         if message == f"{username}: exit":
             client.send("exit".encode('utf-8'))
             sys.exit()
             exit()
             break;
+        elif message == f"{username}: image":
+            client.send("image".encode('utf-8'))
         client.send(message.encode('utf-8'))
 
 receive_thread = threading.Thread(target=receive_messages)
