@@ -18,8 +18,15 @@ def receive_messages():
             message = client.recv(1024).decode('utf-8')
             if message == "@username":
                 client.send(username.encode('utf-8'))
-            else:
+            elif "[CLIENT]" in message:
                 print(message)
+            else:
+                file = open("pythonimage_client.jpg", 'wb')
+                while True:
+                    image = client.recv(1024)
+                    if str(image) == "b''":
+                        break;
+                    file.write(image) 
         except:
             print("An error occurred")
             client.close()
