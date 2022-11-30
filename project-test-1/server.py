@@ -1,7 +1,7 @@
 import socket
 import threading
 
-host = "localhost"
+host = "172.26.48.167"
 port = 5555
 clients = []
 usernames = []

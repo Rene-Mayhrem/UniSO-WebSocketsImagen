@@ -4,7 +4,7 @@ from tkinter import *
 from tkinter import filedialog
 import cv2
 
-host = 'localhost'
+host = '172.26.48.167'
 port = 5555
 
 username = input('Enter your username: ')
