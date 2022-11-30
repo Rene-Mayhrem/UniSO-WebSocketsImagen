@@ -1,8 +1,8 @@
 import socket
 import threading
 
-host = "172.26.48.167"
-port = 5555
+host = "192.168.43.191"
+port = 55555
 clients = []
 usernames = []
 ips = []
@@ -38,22 +38,25 @@ def handle_messages (client):
                 #for username in usernames:
                 #    client.send(username.encode('utf-8'))
                 file = open("pythonimage.jpg", 'wb')
-                while True:
+                cond = True;
+                while cond == True:
                     image = client.recv(1024)
                     if str(image) == "b''":
-                        break;
+                        cond = False
                     file.write(image)
-                image_preview = open("pythonimage.jpg", 'rb')
+                    print("Ayudaaa")
+                """image_preview = open("pythonimage.jpg", 'rb')
                 new_client = clients[next_client]
+                new_client.send("[CLIENT] HUevos")
                 for meta_data in image_preview:
-                    new_client.send(meta_data)
+                    new_client.send(meta_data)"""
             else:
                 broadcast("[CLIENT] "+str(message.decode('utf-8')), client)
         except:
             index = clients.index(client)
             username = usernames[index]
             ip = ips[index]
-            broadcast(f"[CLIENT] ChatBot: {username} disconnected".encode('utf-8'), client)
+            broadcast(f"[CLIENT] ChatBot: {username} disconnected", client)
             clients.remove(client)
             usernames.remove(username)
             ips.remove(ip)

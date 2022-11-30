@@ -4,13 +4,14 @@ from tkinter import *
 from tkinter import filedialog
 import cv2
 
-host = '172.26.48.167'
-port = 5555
+host = '192.168.43.191'
+port = 55555
 
 username = input('Enter your username: ')
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((host, port))
+
 
 def receive_messages():
     while True:
@@ -45,6 +46,8 @@ def write_messages():
             image = open(path, 'rb')
             for meta_data in image:
                 client.send(meta_data)
+                print("JOdeeeer")
+            client.send("[CLIENT] Imagen recibida".encode('utf-8'))
         client.send(message.encode('utf-8'))
 
 
